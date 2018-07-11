@@ -39,7 +39,8 @@ module LocalesExportImport
         hash[key] = value if hash.is_a?(::Hash)
       else
         head, _, tail = key.partition('.')
-        hash[head] = ::Hash.new if hash.nil? || !hash.has_key?(head)
+        hash = {} if hash.nil?
+        hash[head] = ::Hash.new unless hash.has_key?(head)
         add_value_to_tree(hash[head], tail, value)
       end
     end
